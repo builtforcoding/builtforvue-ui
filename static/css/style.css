@@ -1,0 +1,419 @@
+a {
+  color: #46b784;
+}
+
+pre {
+  color: #343a40;
+  border-radius: 5px;
+  padding: 10px;
+  border:#46b784 1px solid;
+  border-left: #46b784 5px solid;
+  background: url(/static/images/pre.png) repeat 0 -0.9rem;
+}
+
+.jumbotron .search-container {
+  width: 800px;
+}
+
+.post-module {
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: #ffffff;
+  min-width: 350px;
+  min-height: 250px;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  -webkit-transition: all 0.3s linear 0s;
+  -moz-transition: all 0.3s linear 0s;
+  -ms-transition: all 0.3s linear 0s;
+  -o-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+  margin-bottom: 20px;
+}
+
+.post-module:hover,
+.hover {
+  -webkit-box-shadow: 0px 1px 35px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 1px 35px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 35px 0px rgba(0, 0, 0, 0.3);
+}
+
+.post-module:hover .thumbnail img,
+.hover .thumbnail img {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  transform: scale(1.1);
+  border-radius: 100%;
+}
+
+.post-module .thumbnail {
+  background: #354a5d;
+  height: 100px;
+  overflow: hidden;
+}
+
+.post-module .thumbnail .date {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  z-index: 1;
+  background: #46b784;
+  padding: 12.5px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  -webkti-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.post-module .thumbnail .date .day {
+  font-size: 18px;
+}
+
+.post-module .thumbnail .date .month {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.post-module .thumbnail img {
+  -webkit-transition: all 0.3s linear 0s;
+  -moz-transition: all 0.3s linear 0s;
+  -ms-transition: all 0.3s linear 0s;
+  -o-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+}
+
+.post-module .post-content {
+  position:relative;
+  bottom: 0;
+  background: #ffffff;
+  width: 100%;
+  padding: 30px;
+  -webkti-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.3s cubic-bezier(0.37, 0.75, 0.61, 1.05) 0s;
+  -moz-transition: all 0.3s cubic-bezier(0.37, 0.75, 0.61, 1.05) 0s;
+  -ms-transition: all 0.3s cubic-bezier(0.37, 0.75, 0.61, 1.05) 0s;
+  -o-transition: all 0.3s cubic-bezier(0.37, 0.75, 0.61, 1.05) 0s;
+  transition: all 0.3s cubic-bezier(0.37, 0.75, 0.61, 1.05) 0s;
+}
+
+.post-module .thumbnail .category {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  background: #46b784;
+  padding: 10px 15px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+}
+
+.post-module .thumbnail .title {
+  margin-top: 50px;
+  margin-left: 20px;
+  padding: 0;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.post-module .thumbnail .title a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.post-module .post-content .sub_title {
+  margin: 0;
+  padding: 0 0 20px;
+  color: #46b784;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.post-module .post-content .description {
+  display: none;
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.8em;
+  width: 75%;
+}
+
+.post-module .post-content .post-meta {
+  margin: 30px 0 0;
+  color: #999999;
+}
+
+.post-module .post-content .post-meta .timestamp {
+  margin: 0 16px 0 0;
+}
+
+.post-module .post-content .post-meta a {
+  color: #999999;
+  text-decoration: none;
+}
+
+.hover .post-content .description {
+  display: block !important;
+  height: auto !important;
+  opacity: 1 !important;
+}
+
+.tags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 75%;
+}
+
+.tags li,
+.tags a {
+  float: left;
+  height: 26px;
+  line-height: 24px;
+  position: relative;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.tags a {
+  margin-left: 20px;
+  padding: 0 10px 0 12px;
+  background: #343a40;
+  color: #fff;
+  text-decoration: none;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  border-right: #46b784 5px solid;
+}
+
+.tags a:before {
+  content: '';
+  float: left;
+  position: absolute;
+  top: 0;
+  left: -12px;
+  width: 0;
+  height: 0;
+  border-color: transparent #343a40 transparent transparent;
+  border-style: solid;
+  border-width: 12px 12px 14px 0;
+}
+
+.tags a:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  float: left;
+  width: 4px;
+  height: 4px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: #fff;
+  -moz-box-shadow: -1px -1px 2px #004977;
+  -webkit-box-shadow: -1px -1px 2px #004977;
+  box-shadow: -1px -1px 2px #004977;
+}
+
+.tags a:hover {
+  background: #555;
+}
+
+.tags a:hover:before {
+  border-color: transparent #555 transparent transparent;
+}
+
+.repository-score-content {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #ffffff;
+}
+
+.repository-score-content ul li {
+  float: left;
+  padding: 10px 32px;
+  text-align: center;
+  list-style: none;
+}
+
+.repository-score-content ul li .digits {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.repository-links-content {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
+.repository-links-content ul li {
+  float: left;
+  padding: 10px;
+  text-align: center;
+  list-style: none;
+  background-color: #ddd;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin-left: 20px;
+}
+.repository-links-content ul li a {
+  color: #000000;
+  font-size: 1.5em;
+}
+
+.repo-detail .detail-container {
+  margin-top: 20px;
+}
+
+.repo-detail .repo-jumbotron {
+ min-height: 300px;
+ background-color: #46b784;
+ margin-right: 0px;
+}
+
+.repo-detail .repo-jumbotron .repo-info {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.repo-detail .repo-jumbotron .repo-info .repo-version-badge {
+  font-size: 1em;
+  margin-top: 10px;
+  position: absolute;
+  margin-left: 15px;
+}
+
+.repo-detail .repo-jumbotron .repo-info img {
+  border: #343a40 1px solid;
+  border-radius: 100%;
+  width: 50px;
+  background-color: #343a40;
+}
+
+.repo-detail .repo-jumbotron .repo-info span, .repo-detail .repo-description .repo-info span {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+.repo-detail .repo-jumbotron .repository-links-content {
+  top: 30px;
+}
+
+.repo-detail .repo-jumbotron .repository-links-content ul li {
+  background-color: #343a40;
+}
+
+.repo-detail .repo-jumbotron .repository-links-content ul li a {
+  color:#ffffff;
+}
+
+.repo-detail .repo-jumbotron .repo-badge {
+ bottom: 0;
+ right: 0;
+ position: absolute;
+ line-height: 0;
+}
+
+.repo-detail .repo-jumbotron .repo-badge img {
+  vertical-align: top;
+}
+
+.repo-detail .repo-jumbotron .repo-name {
+  color: #ffffff;
+  margin-left: 10px;
+}
+
+.repo-detail .repo-jumbotron .chart-container {
+  position: relative;
+  margin: auto;
+}
+
+.repo-detail .tab_container [id^="tab"]:checked + label {
+  background: #fff;
+  box-shadow: inset 0 3px #0CE;
+}
+
+.repo-detail .nav-tabs .nav-item .nav-link:not(.active) {
+
+}
+.repo-detail .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #ffffff;
+  background-color: #46b784;
+  border: #46b784 1px solid;
+  border-radius: 0px;
+}
+
+.repo-detail .nav-tabs {
+    border-bottom: 5px solid #46b784;
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.repo-detail .nav-tabs .nav-item .nav-link {
+  color: #ffffff;
+}
+
+.repo-detail .tab-content {
+  padding-top: 20px;
+}
+
+.repo-detail .card, .card .card-header {
+  border-radius: 0;
+}
+
+.repo-detail .card .card-header {
+  padding: .5rem .5rem;
+  background-color: #343a40;
+  color: #ffffff;
+  font-size: 1em;
+}
+
+.repo-detail .card {
+  border: 1px solid #343a40;
+}
+
+.repo-detail .card .card-body {
+  border-top: #46b784 5px solid;
+}
+
+.repo-detail .progress {
+  height: 2em;
+  /* border: #343a40 1px solid; */
+  border-radius: 0;
+}
+
+.repo-detail .progress-bar {
+    background-color: #46b784;
+}
+
+.repo-detail .repo-description {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.repo-detail .repo-description .repo-description-text {
+  margin-top: 10px;
+}
+
+.repo-detail .repo-description .repo-tags {
+  margin-top: 20px;
+}
+
+.repo-detail-info a {
+  
+}

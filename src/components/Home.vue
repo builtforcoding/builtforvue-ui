@@ -1,0 +1,55 @@
+<template>
+  <main role="main">
+    <ais-index :app-id="appId" :api-key="appKey" :index-name="indexName">
+      <section class="jumbotron text-center">
+        <div class="container search-container">
+          <ais-search-box :autofocus="true" placeholder="Find a Vue Project...">
+            <div class="form-group mx-sm-8">
+              <h1 class="title"> Search for a Vue Package</h1>
+              <ais-input placeholder="Search a Vue Project..." :classNames="{'ais-input': 'form-control form-control-lg'}" />
+              <div style="margin-top: 10px; float:right;">
+                <ais-powered-by :classNames="{'ais-powered-by':'justify-content-right'}"></ais-powered-by>
+              </div>
+            </div>
+          </ais-search-box>
+        </div>
+      </section>
+      <div class="container">
+        <ais-results>
+          <template slot-scope="{ result }">
+            <result :result="result"></result>
+          </template>
+        </ais-results>
+      </div>
+      <div class="container">
+        <ais-pagination :classNames="{'ais-pagination': 'pagination justify-content-center', 'ais-pagination__item': 'page-item', 'ais-pagination__link':'page-link'}"></ais-pagination>
+      </div>
+    </ais-index>
+  </main>
+</template>
+<script>
+import Result from './Result'
+export default {
+  components: {
+    Result
+  },
+  name: 'Home',
+  data () {
+    return {}
+  },
+  methods: {
+    lastUpdatedAt () {}
+  },
+  computed: {
+    appId () {
+      return process.env.ALGOLIA_APP_ID
+    },
+    appKey () {
+      return process.env.ALGOLIA_APP_KEY
+    },
+    indexName () {
+      return process.env.ALGOLIA_DB_INDEX
+    }
+  }
+}
+</script>
