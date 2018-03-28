@@ -12,9 +12,10 @@
               </div>
             </div>
           </ais-search-box>
+          <!-- <top-category-refinement-list attribute-name="keywords"></top-category-refinement-list> -->
         </div>
       </section>
-      <div class="container">
+      <div class="container result-container">
         <ais-results>
           <template slot-scope="{ result }">
             <result :result="result"></result>
@@ -22,23 +23,44 @@
         </ais-results>
       </div>
       <div class="container">
-        <ais-pagination :classNames="{'ais-pagination': 'pagination justify-content-center', 'ais-pagination__item': 'page-item', 'ais-pagination__link':'page-link'}"></ais-pagination>
+        <ais-pagination :classNames="{'ais-pagination': 'pagination justify-content-center', 'ais-pagination__item': 'page-item', 'ais-pagination__link':'page-link'}"  v-on:page-change="onPageChange"></ais-pagination>
       </div>
     </ais-index>
   </main>
 </template>
 <script>
 import Result from './Result'
+import Vue from 'vue'
+import VueScrollTo from 'vue-scrollto'
+import TopCategoryRefinementList from './Home/TopCategoryRefinementList'
+
+Vue.use(VueScrollTo, {
+  container: 'body',
+  duration: 500,
+  easing: 'ease-in',
+  offset: 0,
+  cancelable: false,
+  onStart: false,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
+
 export default {
   components: {
-    Result
+    Result,
+    TopCategoryRefinementList
   },
   name: 'Home',
   data () {
     return {}
   },
   methods: {
-    lastUpdatedAt () {}
+    lastUpdatedAt () {},
+    onPageChange () {
+      VueScrollTo.scrollTo('.result-container')
+    }
   },
   computed: {
     appId () {

@@ -53,12 +53,12 @@
                 </a>
             </li>
             <li>
-                  <a href="bugsUrl" target="_blank">
+                  <a :href="bugsUrl" target="_blank">
                   <i class="fa fa-bug"></i>
                 </a>
             </li>
             <li>
-                <a href="homepageUrl" target="_blank">
+                <a :href="homepageUrl" target="_blank">
                   <i class="fa fa-link"></i>
                 </a>
             </li>

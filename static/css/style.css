@@ -84,6 +84,7 @@ pre {
   -ms-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
+  width: 40px;
 }
 
 .post-module .post-content {
@@ -415,5 +416,5 @@ pre {
 }
 
 .repo-detail-info a {
-  
+
 }

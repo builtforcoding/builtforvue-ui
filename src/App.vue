@@ -6,13 +6,16 @@
           <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
               <h4 class="text-white">About</h4>
-              <p class="text-muted">BuiltforVue provides a mirror for vue projects available on NPM. It provides useful stats for all the vue projects to help choose the right package for your project. BuiltforVue looks up all projects on NPM has the keyword <strong>vue</strong> and that have not been depcrecated and makes it available here.</p>
+              <p class="text-muted">BuiltforVue provides a mirror for vue projects available on NPM.
+                It provides useful stats for all the vue projects to help choose the right package for your project.
+                BuiltforVue looks up all projects on NPM has the keyword <strong>vue</strong> and that have not been depcrecated and makes it available here.</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
               <h4 class="text-white">Contact</h4>
               <ul class="list-unstyled">
-                <li><a href="https://github.com/builtforvue/ui" class="text-white">Star our Repo</a></li>
-                <!-- <li><a href="#" class="text-white">Buy me a coffee</a></li> -->
+                <li><a href="https://github.com/builtforvue/ui" class="text-white">Github</a></li>
+                <li><a href="https://discord.gg/PKB9mHq" class="text-white">Discord App</a></li>
+                <li><a href="https://www.buymeacoffee.com/G5hRfqkwd" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a></li>
               </ul>
             </div>
           </div>

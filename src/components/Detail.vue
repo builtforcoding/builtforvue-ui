@@ -68,7 +68,7 @@
           </ul>
           <div class="tab-content repo-detail-info">
             <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab">
-              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :breaks="markdown.breaks"></vue-markdown>
+              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks" @toc-rendered="fixAnchorTags" @rendered="renderedCalled"></vue-markdown>
             </div>
             <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab">...</div>
           </div>
@@ -79,20 +79,24 @@
               <div class="card">
                 <h5 class="card-header">Ranking</h5>
                 <div class="card-body">
+                  <label class="control-label">QUALITY</label>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" :style="qualityScore | css_width" :aria-valuenow="qualityScore" aria-valuemin="0" aria-valuemax="100">QUALITY ( {{ qualityScore | to_percentage }})</div>
+                    <div class="progress-bar" role="progressbar" :style="qualityScore | css_width" :aria-valuenow="qualityScore" aria-valuemin="0" aria-valuemax="100">{{ qualityScore | to_percentage }}</div>
                   </div>
                   <br>
+                  <label class="control-label">POPULARITY</label>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" :style="popularityScore | css_width" :aria-valuenow="popularityScore" aria-valuemin="0" aria-valuemax="100">POPULARITY ( {{ popularityScore | to_percentage }})</div>
+                    <div class="progress-bar" role="progressbar" :style="popularityScore | css_width" :aria-valuenow="popularityScore" aria-valuemin="0" aria-valuemax="100">{{ popularityScore | to_percentage }}</div>
                   </div>
                   <br>
+                  <label class="control-label">MAINTENANCE</label>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" :style="maintenanceScore | css_width" :aria-valuenow="maintenanceScore" aria-valuemin="0" aria-valuemax="100">MAINTENANCE ( {{ maintenanceScore | to_percentage }})</div>
+                    <div class="progress-bar" role="progressbar" :style="maintenanceScore | css_width" :aria-valuenow="maintenanceScore" aria-valuemin="0" aria-valuemax="100">{{ maintenanceScore | to_percentage }}</div>
                   </div>
                   <br>
+                  <label class="control-label">OVERALL</label>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" :style="overallScore | css_width" :aria-valuenow="overallScore" aria-valuemin="0" aria-valuemax="100">OVERALL ( {{ overallScore | to_percentage }})</div>
+                    <div class="progress-bar" role="progressbar" :style="overallScore | css_width" :aria-valuenow="overallScore" aria-valuemin="0" aria-valuemax="100">{{ overallScore | to_percentage }}</div>
                   </div>
                 </div>
               </div>
@@ -111,6 +115,7 @@ import Result from './Result'
 import UsageChart from './Detail/UsageChart'
 import m from 'moment'
 import Vue from 'vue'
+import $ from 'jquery'
 
 Vue.filter('css_width', function (value) {
   return 'width: ' + value + '%;'
@@ -139,12 +144,13 @@ export default {
       versions: [],
       files: [],
       packageStats: null,
+      packageVersionStats: null,
       versionStats: {},
       markdown: {
         breaks: true,
+        toc: false,
         anchorAttrs: {
-          target: '_blank',
-          rel: 'noopener noreferrer nofollow'
+
         }
       },
       chartOptions: {
@@ -162,12 +168,14 @@ export default {
       this.fetchNPMData()
       this.fetchVersionsInfo()
       this.fetchStatsInfo()
+      this.fetchVersionStatsInfo()
     },
     fetchNPMData () {
       r.get(`https://api.npms.io/v2/package/${this.repo}`).then(res => {
         let data = res.data
         this.npmInfo = data
         this.version = this.repoMetadata.version
+        this.markdown.toc = true
         this.fetchFilesInfo(this.version)
         this.fetchUsageInfoByVersion(this.version)
       })
@@ -187,10 +195,24 @@ export default {
         this.packageStats = res.data
       })
     },
+    fetchVersionStatsInfo () {
+      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}/stats/version/month`).then(res => {
+        this.packageVersionStats = res.data
+      })
+    },
     fetchUsageInfoByVersion (version) {
       r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}@${version}/stats`).then(res => {
         this.versionStats = res.data
       })
+    },
+    fixAnchorTags () {
+      // console.log($('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').length)
+      this.$nextTick(function () {
+        $('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').attr('target', '_blank')
+      })
+    },
+    renderedCalled () {
+      console.log('rendered')
     }
   },
   computed: {

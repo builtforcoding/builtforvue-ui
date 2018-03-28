@@ -1,4 +1,10 @@
-# builtforvue-ui
+![alt text](https://www.builtforvue.com/static/images/logo.png "BuiltforVue Logo")
+
+[![Awesome](https://awesome.re/badge.svg)](https://builtforvue.com)
+
+<a href="https://www.buymeacoffee.com/G5hRfqkwd" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
+[Chat with us on Discord](https://discord.gg/PKB9mHq)
 
 > Vue UI for builtforvue App
 
