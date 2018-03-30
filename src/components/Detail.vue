@@ -68,12 +68,25 @@
           </ul>
           <div class="tab-content repo-detail-info">
             <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab">
-              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks" @toc-rendered="fixAnchorTags" @rendered="renderedCalled"></vue-markdown>
+              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks" @toc-rendered="fixAnchorTags"></vue-markdown>
             </div>
             <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab">...</div>
           </div>
         </div>
         <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>install</h3>
+              <h5>npm</h5>
+              <div class="alert alert-dark install-content" role="alert">
+                <i class="fa fa-angle-right"></i> npm install {{ repo }}
+              </div>
+              <h5>jsdelivr</h5>
+              <div class="alert alert-dark install-content script" role="alert">
+                <pre>&lt;script src="https://cdn.jsdelivr.net/npm/{{repo}}@{{version}}{{defaultFile}}"&gt;&lt;script&gt;</pre>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -116,6 +129,7 @@ import UsageChart from './Detail/UsageChart'
 import m from 'moment'
 import Vue from 'vue'
 import $ from 'jquery'
+let beautify = require('js-beautify').js_beautify
 
 Vue.filter('css_width', function (value) {
   return 'width: ' + value + '%;'
@@ -123,6 +137,10 @@ Vue.filter('css_width', function (value) {
 
 Vue.filter('to_percentage', function (value) {
   return parseInt(value) + '%'
+})
+
+Vue.filter('beautify', function (val) {
+  return beautify(val)
 })
 
 export default {
@@ -142,7 +160,7 @@ export default {
       statsPeriod: 'month',
       npmInfo: null,
       versions: [],
-      files: [],
+      files: null,
       packageStats: null,
       packageVersionStats: null,
       versionStats: {},
@@ -206,13 +224,9 @@ export default {
       })
     },
     fixAnchorTags () {
-      // console.log($('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').length)
       this.$nextTick(function () {
         $('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').attr('target', '_blank')
       })
-    },
-    renderedCalled () {
-      console.log('rendered')
     }
   },
   computed: {
@@ -334,6 +348,11 @@ export default {
     },
     homepageLink () {
       if (this.npmInfo) { return this.repoMetadata.links.homepage }
+    },
+    defaultFile () {
+      if (this.files) {
+        return this.files.default
+      }
     }
   }
 }

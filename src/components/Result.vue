@@ -14,7 +14,7 @@
         <router-link :to="{ name: 'Detail', params: { author: authorUsername, repo: result.name, version: result.version }}">{{result.name}}</router-link>
         <!-- <a href="#">{{result.name}}</a> -->
       </h1>
-      <div class="repository-score-content">
+      <div class="repository-score-content d-none d-sm-none d-md-block">
         <ul>
             <li>
                 <div class="digits">{{ qualityScore }}</div>
@@ -39,7 +39,6 @@
     <!-- Post Content-->
     <div class="post-content">
       <!-- <h2 class="sub_title">The city that never sleeps.</h2> -->
-      <p class="description">{{ result.description }}</p>
       <div class="repository-links-content">
         <ul>
             <li>
@@ -65,6 +64,7 @@
         </ul>
         <div class="clear"></div>
     </div>
+      <p class="description">{{ result.description }}</p>
       <ul class="tags clearfix" v-show="tags.length > 0">
         <li v-for="tag in tags" :key="tag"><a href="#">{{tag}}</a></li>
       </ul>

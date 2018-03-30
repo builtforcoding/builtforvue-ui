@@ -22,8 +22,8 @@
           </template>
         </ais-results>
       </div>
-      <div class="container">
-        <ais-pagination :classNames="{'ais-pagination': 'pagination justify-content-center', 'ais-pagination__item': 'page-item', 'ais-pagination__link':'page-link'}"  v-on:page-change="onPageChange"></ais-pagination>
+      <div class="container mt-5">
+        <ais-pagination :classNames="{'ais-pagination': 'pagination justify-content-center pagination-lg', 'ais-pagination__item': 'page-item', 'ais-pagination__link':'page-link'}"  v-on:page-change="onPageChange"></ais-pagination>
       </div>
     </ais-index>
   </main>

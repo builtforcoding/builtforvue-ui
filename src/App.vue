@@ -1,35 +1,18 @@
 <template>
   <div id="app">
     <header>
-      <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">BuiltforVue provides a mirror for vue projects available on NPM.
-                It provides useful stats for all the vue projects to help choose the right package for your project.
-                BuiltforVue looks up all projects on NPM has the keyword <strong>vue</strong> and that have not been depcrecated and makes it available here.</p>
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li><a href="https://github.com/builtforvue/ui" class="text-white">Github</a></li>
-                <li><a href="https://discord.gg/PKB9mHq" class="text-white">Discord App</a></li>
-                <li><a href="https://www.buymeacoffee.com/G5hRfqkwd" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
+      <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom box-shadow header-navbar">
+        <h5 class="my-0 mr-md-auto font-weight-normal">
           <router-link :to="{ name: 'Home'}" class="navbar-brand d-flex align-items-center">
             <img src="/static/images/logo.png" class="img-fluid" style="width:150px;" alt="">
           </router-link>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
+        </h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+          <router-link :to="{ name: 'About', params: {} }">About</router-link> &nbsp; &nbsp; | &nbsp; &nbsp;
+          <a href="https://github.com/builtforvue/ui" target="_blank">Github</a> &nbsp; &nbsp; |&nbsp; &nbsp;
+          <a href="https://discord.gg/PKB9mHq" target="_blank">Discord</a> &nbsp; &nbsp; |&nbsp; &nbsp;
+          <a href="https://www.buymeacoffee.com/G5hRfqkwd" target="_blank">Buy me a coffee!</a>
+        </nav>
       </div>
     </header>
     <router-view/>
