@@ -184,7 +184,7 @@ export default {
       let params = this.$route.params
       this.author = params.author
       this.repo = params.repo
-      this.fetchGithubRepoInfo()
+      this.fetchNPMData()
 
       this.fetchVersionsInfo()
       this.fetchStatsInfo()
@@ -198,6 +198,7 @@ export default {
         this.markdown.toc = true
         this.fetchFilesInfo(this.version)
         this.fetchUsageInfoByVersion(this.version)
+        this.fetchGithubRepoInfo()
       })
     },
     fetchVersionsInfo () {
@@ -247,9 +248,9 @@ export default {
       })
     },
     fetchGithubRepoInfo () {
-      r.get(`https://api.github.com/repos/${this.author}/${this.repo}`).then(res => {
+      let repoLink = this.repoLink.replace('https://github.com/', '')
+      r.get(`https://api.github.com/repos/${repoLink}`).then(res => {
         this.githubData = res.data
-        this.fetchNPMData()
       })
     }
   },
