@@ -299,7 +299,7 @@ a:hover {
 .repository-links-content {
   position: absolute;
   right: 20px;
-  top: 15px;
+  bottom: 65px;
 }
 
 .repository-links-content ul li {

@@ -164,6 +164,7 @@ export default {
       packageStats: null,
       packageVersionStats: null,
       versionStats: {},
+      githubData: null,
       markdown: {
         breaks: true,
         toc: false,
@@ -183,7 +184,8 @@ export default {
       let params = this.$route.params
       this.author = params.author
       this.repo = params.repo
-      this.fetchNPMData()
+      this.fetchGithubRepoInfo()
+
       this.fetchVersionsInfo()
       this.fetchStatsInfo()
       this.fetchVersionStatsInfo()
@@ -224,8 +226,30 @@ export default {
       })
     },
     fixAnchorTags () {
+      let self = this
       this.$nextTick(function () {
-        $('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').attr('target', '_blank')
+        $('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').each(function (idx, a) {
+          $(a).attr('target', '_blank')
+          if (a.href !== '') {
+            if (window.location.host === a.host) {
+              console.log(self.defaultBranch)
+              if (self.defaultBranch !== undefined && self.defaultBranch !== '') {
+                let pathName = $(a)[0].pathname.replace(`/${self.author}`, '')
+                let blobLink = `${self.repoLink}/blob/${self.defaultBranch}${pathName}`
+                $(a).attr('href', blobLink)
+              } else {
+                $(a).attr('href', 'javascript:void(0)')
+                $(a).removeAttr('target')
+              }
+            }
+          }
+        })
+      })
+    },
+    fetchGithubRepoInfo () {
+      r.get(`https://api.github.com/repos/${this.author}/${this.repo}`).then(res => {
+        this.githubData = res.data
+        this.fetchNPMData()
       })
     }
   },
@@ -353,6 +377,9 @@ export default {
       if (this.files) {
         return this.files.default
       }
+    },
+    defaultBranch () {
+      if (this.githubData) { return this.githubData.default_branch }
     }
   }
 }
