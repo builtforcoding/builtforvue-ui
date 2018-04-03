@@ -766,3 +766,44 @@ a:hover {
 .about-us .tools-used {
   color: #ffffff !important;
 }
+
+.info-block {
+  background-color: #343a40;
+  text-align: center;
+  width: 170px;
+  border-radius: 3px;
+  float: left;
+  padding: 4px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-bottom: 4px #46b784 solid;
+}
+
+.info-block.last {
+  margin-left: 1px;
+}
+
+.info-block dl {
+  margin-bottom: 0.5rem;
+}
+
+.info-block dd,
+.info-block dt {
+  margin: 0;
+  padding: 0;
+}
+
+.info-block dt {
+  font-weight: bold;
+  color: #46b784;
+}
+
+.info-block dd {
+  font-size: 12px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.legend {
+  border-bottom: #343a40 2px solid;
+}

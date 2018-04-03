@@ -53,22 +53,65 @@
               <ul class="tags clearfix repo-tags" v-show="tags.length > 0">
                 <li v-for="tag in tags" :key="tag"><a href="#">{{tag}}</a></li>
               </ul>
-              <div class="pull-right">
-                Last updated {{ lastUpdated }}
-              </div>
             </div>
+            <div class="row">
+              <div class="col-md-12 mt-3">
+                <div class="info-block">
+                  <dl>
+                    <dt>{{ forksCount }}</dt>
+                    <dd>Forks</dd>
+                  </dl>
+                </div>
+                <div class="info-block">
+                  <dl>
+                    <dt>{{ watchersCount }}</dt>
+                    <dd>Watchers</dd>
+                  </dl>
+                </div>
+                <div class="info-block">
+                  <dl>
+                    <dt>{{ stargazersCount }}</dt>
+                    <dd>Stargazers</dd>
+                  </dl>
+                </div>
+                <div class="info-block">
+                  <dl>
+                    <dt>{{ subscribersCount }}</dt>
+                    <dd>Subscribers</dd>
+                  </dl>
+                </div>
+                <div class="info-block">
+                  <dl>
+                    <dt>{{ lastUpdated }}</dt>
+                    <dd>Last Update</dd>
+                  </dl>
+                </div>
+                <div class="info-block npm-count">
+                  <dl>
+                    <dt>{{ npmDownloadsCount }}</dt>
+                    <dd>NPM Downloads Count</dd>
+                  </dl>
+                </div>
+                <div class="info-block js-delivr">
+                  <dl>
+                    <dt>{{ jsDelivrDownloadsCount }}</dt>
+                    <dd>jsDelivr Hits</dd>
+                  </dl>
+                </div>
+            </div>
+          </div>
           </div>
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="readme-tab" data-toggle="tab" href="#readme" role="tab" aria-controls="readme" aria-selected="true">Read me</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
-            </li>
+            </li> -->
           </ul>
           <div class="tab-content repo-detail-info">
             <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab">
-              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks" @toc-rendered="fixAnchorTags"></vue-markdown>
+              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks"></vue-markdown>
             </div>
             <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab">...</div>
           </div>
@@ -76,7 +119,7 @@
         <div class="col-md-4">
           <div class="row">
             <div class="col-md-12">
-              <h3>install</h3>
+              <h3 class="legend">install</h3>
               <h5>npm</h5>
               <div class="alert alert-dark install-content" role="alert">
                 <i class="fa fa-angle-right"></i> npm install {{ repo }}
@@ -129,6 +172,7 @@ import UsageChart from './Detail/UsageChart'
 import m from 'moment'
 import Vue from 'vue'
 import $ from 'jquery'
+import n from 'numeral'
 let beautify = require('js-beautify').js_beautify
 
 Vue.filter('css_width', function (value) {
@@ -251,6 +295,7 @@ export default {
       let repoLink = this.repoLink.replace('https://github.com/', '')
       r.get(`https://api.github.com/repos/${repoLink}`).then(res => {
         this.githubData = res.data
+        this.fixAnchorTags()
       })
     }
   },
@@ -381,6 +426,39 @@ export default {
     },
     defaultBranch () {
       if (this.githubData) { return this.githubData.default_branch }
+    },
+    forksCount () {
+      if (this.githubData) { return this.githubData.forks_count }
+      return 0
+    },
+    watchersCount () {
+      if (this.githubData) { return this.githubData.watchers_count }
+      return 0
+    },
+    stargazersCount () {
+      if (this.githubData) { return this.githubData.stargazers_count }
+      return 0
+    },
+    subscribersCount () {
+      if (this.githubData) { return this.githubData.subscribers_count }
+      return 0
+    },
+    npmDownloadsCount () {
+      if (this.npmInfo) {
+        let count = 0
+        this.npmInfo.collected.npm.downloads.forEach(download => {
+          count += download.count
+        })
+
+        if (count > 10000000) { return n(count).format('0,0.00a') } else { return n(count).format('0,0') }
+      }
+      return 0
+    },
+    jsDelivrDownloadsCount () {
+      if (this.packageStats) {
+        if (this.packageStats.total > 10000000) { return n(this.packageStats.total).format('0,0.00a') } else { return n(this.packageStats.total).format('0,0') }
+      }
+      return 0
     }
   }
 }
