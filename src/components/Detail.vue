@@ -110,8 +110,9 @@
             </li> -->
           </ul>
           <div class="tab-content repo-detail-info">
-            <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab">
-              <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks"></vue-markdown>
+            <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab" v-html="readme">
+              <!-- <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks"></vue-markdown> -->
+
             </div>
             <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab">...</div>
           </div>
@@ -166,7 +167,7 @@
 
 <script>
 import r from 'axios'
-import VueMarkdown from 'vue-markdown'
+import Markdown from 'markdown-it'
 import Result from './Result'
 import UsageChart from './Detail/UsageChart'
 import m from 'moment'
@@ -189,7 +190,6 @@ Vue.filter('beautify', function (val) {
 
 export default {
   components: {
-    VueMarkdown,
     Result,
     UsageChart
   },
@@ -209,13 +209,7 @@ export default {
       packageVersionStats: null,
       versionStats: {},
       githubData: null,
-      markdown: {
-        breaks: true,
-        toc: false,
-        anchorAttrs: {
-
-        }
-      },
+      readme: '',
       chartOptions: {
         width: 100,
         height: 20,
@@ -239,7 +233,7 @@ export default {
         let data = res.data
         this.npmInfo = data
         this.version = this.repoMetadata.version
-        this.markdown.toc = true
+
         this.fetchFilesInfo(this.version)
         this.fetchUsageInfoByVersion(this.version)
         this.fetchGithubRepoInfo()
@@ -289,23 +283,38 @@ export default {
             }
           }
         })
+
+        $('.tab-content.repo-detail-info table:not(.table)').addClass('table table-condensed table-stripped table-bordered')
       })
     },
     fetchGithubRepoInfo () {
       let repoLink = this.repoLink.replace('https://github.com/', '')
       r.get(`https://api.github.com/repos/${repoLink}`).then(res => {
         this.githubData = res.data
-        this.fixAnchorTags()
+        this.fetchReadMe()
       })
+    },
+    fetchReadMe () {
+      if (this.githubData) {
+        let repoLink = this.repoLink.replace('https://github.com/', '')
+        r.get(`https://api.github.com/repos/${repoLink}/readme`).then(res => {
+          let data = res.data
+          let md = new Markdown({
+            html: true,
+            typographer: true
+          })
+          this.readme = md.render(atob(data.content))
+          let self = this
+          this.$nextTick(() => {
+            self.fixAnchorTags()
+          })
+        })
+      }
     }
   },
   computed: {
     jsDelivrURL () {
       return `https://www.jsdelivr.com/package/npm/${this.repo}`
-    },
-    readMe () {
-      if (this.npmInfo) { return this.repoMetadata.readme }
-      return ''
     },
     badgeUrl () {
       return `https://data.jsdelivr.com/v1/package/npm/${this.repo}/badge`
