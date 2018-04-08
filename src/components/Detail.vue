@@ -110,9 +110,8 @@
             </li> -->
           </ul>
           <div class="tab-content repo-detail-info">
-            <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab" v-html="readme">
-              <!-- <vue-markdown :source="readMe" :anchor-attributes="markdown.anchorAttrs" :toc="markdown.toc" :breaks="markdown.breaks"></vue-markdown> -->
-
+            <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab">
+              <vue-markdown :source="readme" :toc="markdown.toc" :breaks="markdown.breaks"></vue-markdown>
             </div>
             <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab">...</div>
           </div>
@@ -167,13 +166,14 @@
 
 <script>
 import r from 'axios'
-import Markdown from 'markdown-it'
 import Result from './Result'
 import UsageChart from './Detail/UsageChart'
 import m from 'moment'
 import Vue from 'vue'
 import $ from 'jquery'
 import n from 'numeral'
+import VueMarkdown from './Detail/VueMarkdown'
+
 let beautify = require('js-beautify').js_beautify
 
 Vue.filter('css_width', function (value) {
@@ -191,7 +191,8 @@ Vue.filter('beautify', function (val) {
 export default {
   components: {
     Result,
-    UsageChart
+    UsageChart,
+    VueMarkdown
   },
   created () {
     this.fetchParams()
@@ -209,6 +210,11 @@ export default {
       packageVersionStats: null,
       versionStats: {},
       githubData: null,
+      markdown: {
+        breaks: true,
+        toc: true,
+        emoji: true
+      },
       readme: '',
       chartOptions: {
         width: 100,
@@ -284,7 +290,7 @@ export default {
           }
         })
 
-        $('.tab-content.repo-detail-info table:not(.table)').addClass('table table-condensed table-stripped table-bordered')
+        $('.tab-content.repo-detail-info .table').addClass('table table-condensed table-stripped table-bordered')
       })
     },
     fetchGithubRepoInfo () {
@@ -295,16 +301,12 @@ export default {
       })
     },
     fetchReadMe () {
+      let self = this
       if (this.githubData) {
         let repoLink = this.repoLink.replace('https://github.com/', '')
         r.get(`https://api.github.com/repos/${repoLink}/readme`).then(res => {
           let data = res.data
-          let md = new Markdown({
-            html: true,
-            typographer: true
-          })
-          this.readme = md.render(atob(data.content))
-          let self = this
+          this.readme = atob(data.content)
           this.$nextTick(() => {
             self.fixAnchorTags()
           })
