@@ -306,9 +306,12 @@ export default {
         let repoLink = this.repoLink.replace('https://github.com/', '')
         r.get(`https://api.github.com/repos/${repoLink}/readme`).then(res => {
           let data = res.data
-          this.readme = atob(data.content)
-          this.$nextTick(() => {
-            self.fixAnchorTags()
+          let downloadUrl = data.download_url
+          r.get(downloadUrl).then(res => {
+            this.readme = res.data
+            this.$nextTick(() => {
+              self.fixAnchorTags()
+            })
           })
         })
       }
