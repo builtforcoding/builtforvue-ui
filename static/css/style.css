@@ -831,3 +831,12 @@ a:hover {
   background-color: #343a40;
   color: #ffffff;
 }
+
+.lead-about {
+  border-left: 5px solid #46b784;
+  padding: 10px;
+}
+
+.search-by-algolia {
+  height: 20px;
+}

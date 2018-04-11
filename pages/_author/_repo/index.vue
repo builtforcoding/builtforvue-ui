@@ -25,7 +25,7 @@
               </li>
               <li>
                   <a :href="homepageLink" target="_blank">
-                    <i class="fa fa-link"></i>
+                    <i class="fa fa-home"></i>
                   </a>
               </li>
           </ul>
@@ -190,21 +190,21 @@ export default {
       meta: [
         { hid: 'description', name: 'description', content: this.repoDescription },
 
-        { iname: 'description', itemprop: 'name', content: this.author + "/" + this.repo },
-        { idesc: 'description', itemprop: 'description', content: this.repoDescription },
-        { iimage: 'description', itemprop: 'image', content: this.authorLargeImage },
+        { hid: 'google_title', itemprop: 'name', content: this.author + "/" + this.repo },
+        { hid: 'google_description', itemprop: 'description', content: this.repoDescription },
+        { hid: 'google_author_image', itemprop: 'image', content: this.authorLargeImage },
 
-        { tcard: 'twitter-card', property:'twitter:card',content: "summary" },
-        { ttitle: 'twitter-title', property:'twitter:title',content: this.author + "/" + this.repo },
-        { tdesc: 'twitter-description', property:'twitter:description',content: this.repoDescription },
-        { timage: 'twitter-image', property:'twitter:image',content: this.authorLargeImage },
+        { hid: 'twitter-card', property:'twitter:card',content: "summary" },
+        { hid: 'twitter-title', property:'twitter:title',content: this.author + "/" + this.repo },
+        { hid: 'twitter-description', property:'twitter:description',content: this.repoDescription },
+        { hid: 'twitter-image', property:'twitter:image',content: this.authorLargeImage },
 
-        { og_title: 'og-title', property:'og:title',content: this.author + "/" + this.repo},
-        { og_type: 'og_type', property: 'og:type', content: 'article' },
-        { og_url: 'og_url', property: 'og:url', content: '/' + this.author + "/" + this.repo },
-        { og_image: 'og_image', property: 'og:image', content: this.authorLargeImage },
-        { og_description: 'og_description', property: 'og:description', content: this.repoDescription },
-        { og_sitename: 'og_sitename', property: 'og:site_name', content: 'BuiltforVue' },
+        { hid: 'og-title', property:'og:title',content: this.author + "/" + this.repo},
+        { hid: 'og_type', property: 'og:type', content: 'article' },
+        { hid: 'og_url', property: 'og:url', content: '/' + this.author + "/" + this.repo },
+        { hid: 'og_image', property: 'og:image', content: this.authorLargeImage },
+        { hid: 'og_description', property: 'og:description', content: this.repoDescription },
+        { hid: 'og_sitename', property: 'og:site_name', content: 'BuiltforVue' },
       ]
     }
   },

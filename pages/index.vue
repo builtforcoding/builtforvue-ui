@@ -8,6 +8,7 @@
               <h1 class="title"> Search for a Vue Package</h1>
               <ais-input placeholder="Search a Vue Project..." :classNames="{'ais-input': 'form-control form-control-lg'}" />
               <div style="margin-top: 10px; float:right;">
+                <img src="/images/search-by-algolia.png" alt="Search By Algolia" class="search-by-algolia">
                 <!-- <ais-powered-by :classNames="{'ais-powered-by':'justify-content-right'}"></ais-powered-by> -->
               </div>
             </div>
@@ -49,6 +50,13 @@ Vue.use(VueScrollTo, {
 })
 
 export default {
+  head(){
+    return {
+      meta:[
+        { hid: 'description', name: 'description', content: 'BuiltforVue provides a mirror for vue projects available on NPM. It combines information from npm and jsdelivr to provide useful stats to help choose the right package for your project' }
+      ]
+    }
+  },
   components: {
     Result,
     TopCategoryRefinementList
