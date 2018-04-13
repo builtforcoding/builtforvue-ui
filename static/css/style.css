@@ -3,6 +3,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #6c757d;
+  min-height: 800px;
 }
 
 a,
@@ -839,4 +840,44 @@ a:hover {
 
 .search-by-algolia {
   height: 20px;
+}
+
+footer {
+  background-color: #343a40;
+  border-top: 10px solid #46b784;
+  padding-top: 20px;
+  padding-bottom: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+img.logo {
+  height: 50px;
+}
+
+.link-scores-help {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 0.8rem;
+}
+
+[v-cloak] > * {
+  display: none;
+}
+
+.modal .card-body {
+  font-size: 0.8rem;
+}
+
+.modal .card-header {
+  padding: 0.5rem;
+  background-color: #343a40;
+  color: #ffffff;
+  font-size: 1em;
+  border-bottom: 5px solid #46b784;
+}
+
+.img-paypal {
+  height: 50px;
 }

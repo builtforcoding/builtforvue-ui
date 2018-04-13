@@ -142,6 +142,13 @@
 
         </div>
       </div>
+      <div class="row mt-5 mb-15">
+        <div class="col">
+          <h3>What does our stack look like?</h3>
+          <a frameborder="0" data-theme="dark" data-layers="1,2,3,4" data-stack-embed="true" href="https://embed.stackshare.io/stacks/embed/f368826b7d62604e423f96031804e1"></a>
+          <script async src="https://cdn1.stackshare.io/javascripts/client-code.js" charset="utf-8"></script>
+        </div>
+      </div>
     </div>
   </main>
 </template>

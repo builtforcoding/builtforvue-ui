@@ -1,6 +1,9 @@
-![alt text](https://www.builtforvue.com/static/images/logo_black.png "BuiltforVue Logo")
+![alt text](https://www.builtforvue.com/images/logo_black.png "BuiltforVue Logo")
 
 [![Awesome](https://awesome.re/badge.svg)](https://builtforvue.com)
+
+![license](https://img.shields.io/github/license/builtforvue/ui.svg?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/builtforvue/ui.svg?style=for-the-badge)
 
 <a href="https://www.buymeacoffee.com/G5hRfqkwd" target="_blank">
 <img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"/></a>

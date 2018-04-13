@@ -11,10 +11,21 @@
           <router-link :to="{ name: 'about', params: {} }">About</router-link> &nbsp; &nbsp; | &nbsp; &nbsp;
           <a href="https://github.com/builtforvue/ui" target="_blank">Github</a> &nbsp; &nbsp; |&nbsp; &nbsp;
           <a href="https://discord.gg/PKB9mHq" target="_blank">Discord</a> &nbsp; &nbsp; |&nbsp; &nbsp;
-          <a href="https://www.buymeacoffee.com/G5hRfqkwd" target="_blank">Buy me a coffee!</a>
+          <router-link :to="{ name: 'support', params: {} }">Support Us</router-link>
         </nav>
       </div>
     </header>
-    <nuxt/>
+    <div style="margin-bottom: 100px;">
+      <nuxt/>
+    </div>
+    <footer class="footer navbar fixed-bottom" v-cloak>
+      <div class="container">
+        <div class="row">
+          <div class="col text-white justify-content-center">
+            <div class="text-center small">Copyright &copy; 2018 Builtforvue.com</div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>

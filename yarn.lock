@@ -78,6 +78,12 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@nuxtjs/dotenv@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.1.1.tgz#c3d68f96d8f76cac4c4ddbc8268702eb95737bbe"
+  dependencies:
+    dotenv "^5.0.0"
+
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/youch/-/youch-4.2.3.tgz#36f8b22df5a0efaa81373109851e1d857aca6bed"
@@ -2017,6 +2023,10 @@ domutils@^1.5.1:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
+
+dotenv@^5.0.0, dotenv@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
 
 duplexer@^0.1.1:
   version "0.1.1"

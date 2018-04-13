@@ -1,5 +1,6 @@
 <template>
   <main role="main" class="repo-detail">
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ad0f06726ede532"></script>
     <div class="row repo-jumbotron">
       <div class="col">
         <div class="repo-badge">

@@ -38,7 +38,7 @@
     </div>
     <!-- Post Content-->
     <div class="post-content">
-      <!-- <h2 class="sub_title">The city that never sleeps.</h2> -->
+      <span class="link-scores-help"><a href="javascript:void(0)" @click="openScoreModal">How are the scores calculated?</a></span>
       <div class="repository-links-content">
         <ul>
             <li>
@@ -81,6 +81,11 @@
 let m = require('moment')
 export default {
   props: ['result'],
+  methods:{
+    openScoreModal(){
+      $('#score_modal').modal('show');
+    }
+  },
   computed: {
     qualityScore () {
       return Math.floor(this.result.score_quality * 100)
