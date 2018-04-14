@@ -6,6 +6,10 @@ body {
   min-height: 800px;
 }
 
+main {
+  margin-bottom: 100px;
+}
+
 a,
 a:hover {
   color: #46b784;
@@ -880,4 +884,12 @@ img.logo {
 
 .img-paypal {
   height: 50px;
+}
+/* Tablets */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  .pagination-lg .page-link {
+    padding: 0.50rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 }

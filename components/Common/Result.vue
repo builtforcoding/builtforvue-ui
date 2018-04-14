@@ -38,8 +38,8 @@
     </div>
     <!-- Post Content-->
     <div class="post-content">
-      <span class="link-scores-help"><a href="javascript:void(0)" @click="openScoreModal">How are the scores calculated?</a></span>
-      <div class="repository-links-content">
+      <span class="link-scores-help d-none d-sm-none d-md-block"><a href="javascript:void(0)" @click="openScoreModal">How are the scores calculated?</a></span>
+      <div class="repository-links-content d-none d-sm-none d-md-block">
         <ul>
             <li>
               <a :href="repositoryUrl" target="_blank">

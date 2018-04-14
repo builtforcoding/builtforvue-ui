@@ -1,5 +1,5 @@
 <template lang="html">
-  <main role="main">
+  <div>
     <section class="jumbotron text-center">
       <h1 class="title">Support BuiltforVue</h1>
     </section>
@@ -28,7 +28,7 @@
       </div>
 
     </div>
-  </main>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <main role="main" class="about-us">
+  <div class="about-us">
     <section class="jumbotron text-center">
       <h1 class="title">About</h1>
     </section>
@@ -7,7 +7,8 @@
     <div class="container">
       <div class="row mt-5">
         <div class="col">
-          <div class="lead lead-about">BuiltforVue provides a mirror for vue projects available on NPM.
+          <div class="lead lead-about">BuiltforVue is an MIT licensed open source project and completely free to use.
+            BuiltforVue provides a mirror for vue projects available on NPM.
             It combines information from npm and jsdelivr to provide useful stats to help choose the right package for your project.
           </div>
         </div>
@@ -150,5 +151,5 @@
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </template>

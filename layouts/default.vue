@@ -15,9 +15,9 @@
         </nav>
       </div>
     </header>
-    <div style="margin-bottom: 100px;">
+    <main role="main">
       <nuxt/>
-    </div>
+    </main>
     <footer class="footer navbar fixed-bottom" v-cloak>
       <div class="container">
         <div class="row">
