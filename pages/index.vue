@@ -8,11 +8,9 @@
               <ais-input placeholder="Search a Vue Project..." :classNames="{'ais-input': 'form-control form-control-lg'}" />
               <div style="margin-top: 10px; float:right;">
                 <img src="/images/search-by-algolia.png" alt="Search By Algolia" class="search-by-algolia">
-                <!-- <ais-powered-by :classNames="{'ais-powered-by':'justify-content-right'}"></ais-powered-by> -->
               </div>
             </div>
           </ais-search-box>
-          <!-- <top-category-refinement-list attribute-name="keywords"></top-category-refinement-list> -->
         </div>
       </section>
       <div class="container result-container">
@@ -115,16 +113,15 @@
     </ais-index>
 </template>
 <script>
-import Result from '../components/Common/Result'
-import Vue from 'vue'
-import VueScrollTo from 'vue-scrollto'
-import TopCategoryRefinementList from '../components/Home/RefinementList'
-
+import Result from "../components/Common/Result";
+import Vue from "vue";
+import VueScrollTo from "vue-scrollto";
+import TopCategoryRefinementList from "../components/Home/RefinementList";
 
 Vue.use(VueScrollTo, {
-  container: 'body',
+  container: "body",
   duration: 500,
-  easing: 'ease-in',
+  easing: "ease-in",
   offset: 0,
   cancelable: false,
   onStart: false,
@@ -132,40 +129,46 @@ Vue.use(VueScrollTo, {
   onCancel: false,
   x: false,
   y: true
-})
+});
 
 export default {
-  head(){
+  head() {
     return {
-      meta:[
-        { hid: 'description', name: 'description', content: 'BuiltforVue provides a mirror for vue projects available on NPM. It combines information from npm and jsdelivr to provide useful stats to help choose the right package for your project' }
+      title: "BuiltForVue - A subset of the builtforcoding.com ecosystem. Contains a list of projects and packages made using VueJS with ranking information to help choose the right package.",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "BuiltforVue provides a mirror for vue projects available on NPM. It combines information from npm and jsdelivr to provide useful stats to help choose the right package for your project"
+        }
       ]
-    }
+    };
   },
   components: {
     Result,
     TopCategoryRefinementList
   },
-  name: 'Home',
-  data () {
-    return {}
+  name: "Home",
+  data() {
+    return {};
   },
   methods: {
-    lastUpdatedAt () {},
-    onPageChange () {
-      VueScrollTo.scrollTo('.result-container')
+    lastUpdatedAt() {},
+    onPageChange() {
+      VueScrollTo.scrollTo(".result-container");
     }
   },
   computed: {
-    appId () {
-      return process.env.ALGOLIA_APP_ID
+    appId() {
+      return process.env.ALGOLIA_APP_ID;
     },
-    appKey () {
-      return process.env.ALGOLIA_APP_KEY
+    appKey() {
+      return process.env.ALGOLIA_APP_KEY;
     },
-    indexName () {
-      return process.env.ALGOLIA_DB_INDEX
+    indexName() {
+      return process.env.ALGOLIA_DB_INDEX;
     }
   }
-}
+};
 </script>

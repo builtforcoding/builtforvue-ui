@@ -71,69 +71,75 @@
       <div class="post-meta">
         <span class="comments">
           <i class="fa fa-user"></i>
-          <a :href="authorUrl" target="_blank"> {{ authorUsername }}</a>
+          <a :href="'/' + authorUsername"> {{ authorName }} ( {{authorUsername}} )</a>
         </span>
       </div>
     </div>
   </div>
 </template>
 <script>
-let m = require('moment')
+let m = require("moment");
 export default {
-  props: ['result'],
-  methods:{
-    openScoreModal(){
-      $('#score_modal').modal('show');
+  props: ["result"],
+  methods: {
+    openScoreModal() {
+      $("#score_modal").modal("show");
     }
   },
   computed: {
-    qualityScore () {
-      return Math.floor(this.result.score_quality * 100)
+    qualityScore() {
+      return Math.floor(this.result.score_quality * 100);
     },
-    popularityScore () {
-      return Math.floor(this.result.score_popularity * 100)
+    popularityScore() {
+      return Math.floor(this.result.score_popularity * 100);
     },
-    maintainanceScore () {
-      return Math.floor(this.result.score_maintenance * 100)
+    maintainanceScore() {
+      return Math.floor(this.result.score_maintenance * 100);
     },
-    overallScore () {
-      return Math.floor(this.result.final_score * 100)
+    overallScore() {
+      return Math.floor(this.result.final_score * 100);
     },
-    npmUrl () {
-      return this.result.npm_url
+    npmUrl() {
+      return this.result.npm_url;
     },
-    homepageUrl () {
-      return this.result.homepage
+    homepageUrl() {
+      return this.result.homepage;
     },
-    repositoryUrl () {
-      return this.result.repository
+    repositoryUrl() {
+      return this.result.repository;
     },
-    bugsUrl () {
-      return this.result.bugs
+    bugsUrl() {
+      return this.result.bugs;
     },
-    lastUpdated () {
-      return m(this.result.project_last_updated).fromNow()
+    lastUpdated() {
+      return m(this.result.project_last_updated).fromNow();
     },
-    tags () {
+    tags() {
       return this.result.keywords.slice(0, 10).filter(r => {
-        return (r !== '')
-      })
+        return r !== "";
+      });
     },
-    authorUsername () {
-      return this.result.author_username
+    authorUsername() {
+      return this.result.author_username;
     },
-    authorImage () {
-      let repoUrl = this.repositoryUrl
-      let sliced = repoUrl.split('/')
-      let repoName = sliced[sliced.length - 2]
-      return 'https://github.com/' + repoName + '.png?size=30'
+    authorImage() {
+      if (this.repositoryUrl) {
+        let repoUrl = this.repositoryUrl;
+        let sliced = repoUrl.split("/");
+        let repoName = sliced[sliced.length - 2];
+        return "https://github.com/" + repoName + ".png?size=30";
+      }
+      return "";
     },
-    authorUrl () {
-      return 'https://npmjs.com/~' + this.authorUsername
+    authorUrl() {
+      return "https://npmjs.com/~" + this.authorUsername;
     },
-    repoDetailURL () {
-      return ''
+    authorName() {
+      return this.result.author;
+    },
+    repoDetailURL() {
+      return "";
     }
   }
-}
+};
 </script>

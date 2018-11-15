@@ -153,3 +153,22 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  head() {
+    return {
+      title: "About BuiltForVue.com",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "BuiltforVue is an MIT licensed open source project and completely free to use. BuiltforVue provides a mirror for vue projects available on NPM. It combines information from npm and jsdelivr to provide useful stats to help choose the right package for your project."
+        }
+      ]
+    };
+  }
+};
+</script>
+

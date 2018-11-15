@@ -106,15 +106,25 @@
             <li class="nav-item">
               <a class="nav-link active" id="readme-tab" data-toggle="tab" href="#readme" role="tab" aria-controls="readme" aria-selected="true">Read me</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
-            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" id="runkit-tab" data-toggle="tab" href="#runkit" role="tab" aria-controls="runkit" aria-selected="false">RunKit</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="jsDelivr-tab" data-toggle="tab" href="#jsDelivr" role="tab" aria-controls="jsDelivr" aria-selected="false">
+                <img src="/images/jsdelivr-logo.png" alt="" style="width:25px;"> jsDelivr
+              </a>
+            </li>
           </ul>
           <div class="tab-content repo-detail-info">
-            <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active readme" id="readme" role="tabpanel" aria-labelledby="readme-tab">
               <vue-markdown :source="readme" :toc="markdown.toc" :breaks="markdown.breaks"></vue-markdown>
             </div>
-            <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade" id="runkit" role="tabpanel" aria-labelledby="runkit-tab">
+              <iframe :src="`https://npm.runkit.com/${repo}`" width="100%" height="700px" frameborder="0"></iframe>
+            </div>
+            <div class="tab-pane fade" id="jsDelivr" role="tabpanel" aria-labelledby="jsDelivr-tab">
+              <iframe :src="`https://www.jsdelivr.com/package/npm/${repo}`" width="100%" height="700px" frameborder="0"></iframe>
+            </div>
           </div>
         </div>
         <div class="col-md-4">

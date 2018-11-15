@@ -17,6 +17,8 @@
     </header>
     <main role="main">
       <nuxt/>
+      <script src="https://codefund.io/scripts/cf711cc2-fc84-4091-b3e9-34ebb673f9d6/embed.js"></script>
+      <div id="codefund_ad"></div>
     </main>
     <footer class="footer navbar fixed-bottom" v-cloak>
       <div class="container">
