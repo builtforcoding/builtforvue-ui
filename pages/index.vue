@@ -7,18 +7,40 @@
               <h1 class="title"> Search for a Vue Package</h1>
               <ais-input placeholder="Search a Vue Project..." :classNames="{'ais-input': 'form-control form-control-lg'}" />
               <div style="margin-top: 10px; float:right;">
-                <img src="/images/search-by-algolia.png" alt="Search By Algolia" class="search-by-algolia">
+                <img src="/images/search-by-algolia.png" alt="Search By Algolia" class="search-by-algolia" title="Search By Algolia">
               </div>
             </div>
           </ais-search-box>
         </div>
       </section>
       <div class="container result-container">
-        <ais-results>
-          <template slot-scope="{ result }">
-            <result :result="result"></result>
-          </template>
-        </ais-results>
+        <div class="row">
+          <div class="col">
+            <span class="float-right mb-5 v-cloak">Sort By: 
+              <ais-sort-by-selector :indices="[
+                    {name: indexName , label: 'Most Optimal'},
+                    {name: indexName + '_score_maintanence_desc', label: 'Most Maintained'},
+                    {name: indexName + '_score_popularity_desc', label: 'Most Popular'},
+                    {name: indexName + '_score_quality_desc', label: 'Most Quality'}
+                  ]"
+              >
+                <template slot-scope="{ indexName, label }">
+                  <option :value="indexName">{{ label }}</option>
+                </template>
+              </ais-sort-by-selector>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <ais-results>
+              <template slot-scope="{ result }">
+                <result :result="result"></result>
+              </template>
+            </ais-results>
+            
+          </div>
+        </div>
       </div>
       <div class="container mt-5">
         <ais-pagination :classNames="{'ais-pagination': 'pagination justify-content-center pagination-lg', 'ais-pagination__item': 'page-item', 'ais-pagination__link':'page-link'}"  v-on:page-change="onPageChange"></ais-pagination>
@@ -132,19 +154,6 @@ Vue.use(VueScrollTo, {
 });
 
 export default {
-  head() {
-    return {
-      title: "BuiltForVue - A subset of the builtforcoding.com ecosystem. Contains a list of projects and packages made using VueJS with ranking information to help choose the right package.",
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content:
-            "BuiltforVue provides a mirror for vue projects available on NPM. It combines information from npm and jsdelivr to provide useful stats to help choose the right package for your project"
-        }
-      ]
-    };
-  },
   components: {
     Result,
     TopCategoryRefinementList

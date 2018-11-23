@@ -10,7 +10,7 @@
       </div>
       <h1 class="title">
         <!-- <ais-highlight :result="result" attribute-name="name"></ais-highlight> -->
-        <img :src="authorImage" alt="">
+        <img :src="authorImage" :alt="authorUsername" :title="authorUsername">
         <nuxt-link :to="`/${authorUsername}/${result.name}`">{{result.name}}</nuxt-link>
         <!-- <a href="#">{{result.name}}</a> -->
       </h1>
@@ -71,75 +71,103 @@
       <div class="post-meta">
         <span class="comments">
           <i class="fa fa-user"></i>
-          <a :href="'/' + authorUsername"> {{ authorName }} ( {{authorUsername}} )</a>
+          <a :href="authorUrl" target="_blank"> {{ authorUsername }}</a>
         </span>
       </div>
     </div>
   </div>
 </template>
 <script>
-let m = require("moment");
+let m = require('moment')
 export default {
-  props: ["result"],
+  props: {
+    result: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   methods: {
     openScoreModal() {
-      $("#score_modal").modal("show");
+      $('#score_modal').modal('show')
     }
   },
   computed: {
     qualityScore() {
-      return Math.floor(this.result.score_quality * 100);
+      return Math.floor(this.result.score_quality * 100)
     },
     popularityScore() {
-      return Math.floor(this.result.score_popularity * 100);
+      return Math.floor(this.result.score_popularity * 100)
     },
     maintainanceScore() {
-      return Math.floor(this.result.score_maintenance * 100);
+      return Math.floor(this.result.score_maintenance * 100)
     },
     overallScore() {
-      return Math.floor(this.result.final_score * 100);
+      return Math.floor(this.result.final_score * 100)
     },
     npmUrl() {
-      return this.result.npm_url;
+      return this.result.npm_url
     },
     homepageUrl() {
-      return this.result.homepage;
+      return this.result.homepage
     },
     repositoryUrl() {
-      return this.result.repository;
+      return this.result.repository
     },
     bugsUrl() {
-      return this.result.bugs;
+      return this.result.bugs
     },
     lastUpdated() {
-      return m(this.result.project_last_updated).fromNow();
+      return m(this.result.project_last_updated).fromNow()
     },
     tags() {
       return this.result.keywords.slice(0, 10).filter(r => {
-        return r !== "";
-      });
+        return r !== ''
+      })
     },
     authorUsername() {
-      return this.result.author_username;
+      return this.result.author_username
     },
     authorImage() {
       if (this.repositoryUrl) {
-        let repoUrl = this.repositoryUrl;
-        let sliced = repoUrl.split("/");
-        let repoName = sliced[sliced.length - 2];
-        return "https://github.com/" + repoName + ".png?size=30";
+        let sliced = this.slicedRepoUrl
+        let repoName = sliced[sliced.length - 2]
+        return 'https://github.com/' + repoName + '.png?size=30'
       }
-      return "";
+      return ''
     },
     authorUrl() {
-      return "https://npmjs.com/~" + this.authorUsername;
+      return 'https://npmjs.com/~' + this.authorUsername
     },
     authorName() {
-      return this.result.author;
+      return this.result.author
     },
     repoDetailURL() {
-      return "";
+      return ''
+    },
+    repoRoot() {
+      let sliced = this.slicedRepoUrl
+      if(sliced.length > 0){
+        return sliced[sliced.length - 2];
+      }
+      return '';
+    },
+    repoSlug() {
+      let sliced = this.slicedRepoUrl
+      if(sliced.length > 0){
+        return sliced[sliced.length - 1];
+      }
+      return '';
+    },
+    slicedRepoUrl() {
+      if (this.repositoryUrl) {
+        let repoUrl = this.repositoryUrl
+        let sliced = repoUrl.split('/')
+        return sliced
+      }
+      return []
     }
   }
-};
+}
 </script>
