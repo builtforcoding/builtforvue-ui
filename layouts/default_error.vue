@@ -28,16 +28,13 @@
     </header>
     <main role="main">
       <nuxt/>
-      <script src="https://codefund.io/scripts/cf711cc2-fc84-4091-b3e9-34ebb673f9d6/embed.js"></script>
-      <div id="codefund_ad"></div>
     </main>
     <footer class="footer navbar fixed-bottom" v-cloak>
       <div class="container">
-        <div class="row">
-          <div class="col text-white justify-content-center">
-            <div class="text-center small">Copyright &copy; 2018 Builtforvue.com <span class="ml-3">Made with <i class="fa fa-heart text-success heart-beat ml-1"></i></span></div>
+          <div class="d-flex flex-fill text-white">
+            <p class="text-left small">Copyright &copy; 2018 Builtforcoding.com</p>
+            <p class="float-right small ml-3">Made with <i class="fa fa-heart text-success heart-beat ml-1"></i></p>
           </div>
-        </div>
       </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -49,11 +46,12 @@
 
 <style>
 .heart-beat {
-  animation: beat .75s infinite alternate;
+  animation: beat 0.75s infinite alternate;
 }
-  /* Heart beat animation */
-@keyframes beat{
-	to { transform: scale(1.4); }
+/* Heart beat animation */
+@keyframes beat {
+  to {
+    transform: scale(1.4);
+  }
 }
-
 </style>

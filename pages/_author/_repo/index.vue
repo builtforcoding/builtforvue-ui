@@ -1,6 +1,44 @@
 <template>
   <div class="repo-detail">
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ad0f06726ede532"></script>
+    <fixed-header :fixed.sync="isFixed">
+      <nav class="navbar navbar-expand-lg d-none header-navbar secondary-navbar" :class="{'fixed-top': isFixed, 'd-block': isFixed}">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <img :src="authorImage" alt="">
+              <span class="repo-name">{{ author + "/" + repo }}</span>
+            </li>
+          </ul>
+          <ul class="pull-right list-inline repository-links-content">
+              <li>
+                <a :href="repoLink" target="_blank">
+                    <i class="fab fa-github-alt"></i>
+                  </a>
+              </li>
+              <li>
+                    <a :href="npmLink" target="_blank">
+                    <i class="fab fa-npm"></i>
+                  </a>
+              </li>
+              <li>
+                    <a :href="bugsLink" target="_blank">
+                    <i class="fa fa-bug"></i>
+                  </a>
+              </li>
+              <li>
+                  <a :href="homepageLink" target="_blank">
+                    <i class="fa fa-home"></i>
+                  </a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    </fixed-header>
     <div class="row repo-jumbotron">
       <div class="col">
         <div class="repo-badge">
@@ -32,12 +70,11 @@
           </ul>
           <div class="clear"></div>
       </div>
-        <div class="repo-info">
-          <img :src="authorImage" alt="">
-          <span class="repo-name">{{ author + "/" + repo }}</span>
-          <!-- <a href="#" class="badge badge-secondary repo-version-badge">v{{ version }}</a> -->
-        </div>
-        <usage-chart :width="chartOptions.width" :height="chartOptions.height" :chart-data="jumbotronChartData" :css-classes="chartOptions.cssClass"></usage-chart>
+      <div class="repo-info">
+        <img :src="authorImage" alt="">
+        <span class="repo-name">{{ author + "/" + repo }}</span>
+      </div>
+      <usage-chart :width="chartOptions.width" :height="chartOptions.height" :chart-data="jumbotronChartData" :css-classes="chartOptions.cssClass"></usage-chart>
       </div>
     </div>
     <div class="container detail-container">
@@ -133,7 +170,7 @@
               <h3 class="legend">install</h3>
               <h5>npm</h5>
               <div class="alert alert-dark install-content" role="alert">
-                <i class="fa fa-angle-right"></i> npm install {{ repo }}
+                <i class="fa fa-angle-right"></i> npm install {{ repo }} <i class="fa fa-copy" style="text-align:right"></i>
               </div>
               <h5>jsdelivr</h5>
               <div class="alert alert-dark install-content script" role="alert">
@@ -183,50 +220,95 @@ import Vue from 'vue'
 import $ from 'cheerio'
 import n from 'numeral'
 import VueMarkdown from '../../../components/Detail/VueMarkdown'
+import FixedHeader from 'vue-fixed-header'
 
-
-Vue.filter('css_width', function (value) {
+Vue.filter('css_width', function(value) {
   return 'width: ' + value + '%;'
 })
 
-Vue.filter('to_percentage', function (value) {
+Vue.filter('to_percentage', function(value) {
   return parseInt(value) + '%'
 })
 
 export default {
-  head(){
+  head() {
     return {
-      title: "BuiltforVue: " + this.author + "/" + this.repo,
+      title: 'BuiltforVue: ' + this.author + '/' + this.repo,
       meta: [
-        { hid: 'description', name: 'description', content: this.repoDescription },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.repoDescription
+        },
 
-        { hid: 'google_title', itemprop: 'name', content: this.author + "/" + this.repo },
-        { hid: 'google_description', itemprop: 'description', content: this.repoDescription },
-        { hid: 'google_author_image', itemprop: 'image', content: this.authorLargeImage },
+        {
+          hid: 'google_title',
+          itemprop: 'name',
+          content: this.author + '/' + this.repo
+        },
+        {
+          hid: 'google_description',
+          itemprop: 'description',
+          content: this.repoDescription
+        },
+        {
+          hid: 'google_author_image',
+          itemprop: 'image',
+          content: this.authorLargeImage
+        },
 
-        { hid: 'twitter-card', property:'twitter:card',content: "summary" },
-        { hid: 'twitter-title', property:'twitter:title',content: this.author + "/" + this.repo },
-        { hid: 'twitter-description', property:'twitter:description',content: this.repoDescription },
-        { hid: 'twitter-image', property:'twitter:image',content: this.authorLargeImage },
+        { hid: 'twitter-card', property: 'twitter:card', content: 'summary' },
+        {
+          hid: 'twitter-title',
+          property: 'twitter:title',
+          content: this.author + '/' + this.repo
+        },
+        {
+          hid: 'twitter-description',
+          property: 'twitter:description',
+          content: this.repoDescription
+        },
+        {
+          hid: 'twitter-image',
+          property: 'twitter:image',
+          content: this.authorLargeImage
+        },
 
-        { hid: 'og-title', property:'og:title',content: this.author + "/" + this.repo},
+        {
+          hid: 'og-title',
+          property: 'og:title',
+          content: this.author + '/' + this.repo
+        },
         { hid: 'og_type', property: 'og:type', content: 'article' },
-        { hid: 'og_url', property: 'og:url', content: '/' + this.author + "/" + this.repo },
-        { hid: 'og_image', property: 'og:image', content: this.authorLargeImage },
-        { hid: 'og_description', property: 'og:description', content: this.repoDescription },
-        { hid: 'og_sitename', property: 'og:site_name', content: 'BuiltforVue' },
+        {
+          hid: 'og_url',
+          property: 'og:url',
+          content: '/' + this.author + '/' + this.repo
+        },
+        {
+          hid: 'og_image',
+          property: 'og:image',
+          content: this.authorLargeImage
+        },
+        {
+          hid: 'og_description',
+          property: 'og:description',
+          content: this.repoDescription
+        },
+        { hid: 'og_sitename', property: 'og:site_name', content: 'BuiltforVue' }
       ]
     }
   },
   components: {
     Result,
     UsageChart,
-    VueMarkdown
+    VueMarkdown,
+    FixedHeader
   },
-  created () {
+  created() {
     this.fetchParams()
   },
-  data () {
+  data() {
     return {
       author: '',
       repo: '',
@@ -249,11 +331,12 @@ export default {
         width: 100,
         height: 20,
         cssClass: 'chart-container'
-      }
+      },
+      isFixed: false
     }
   },
   methods: {
-    fetchParams () {
+    fetchParams() {
       let params = this.$route.params
       this.author = params.author
       this.repo = params.repo
@@ -263,7 +346,7 @@ export default {
       this.fetchStatsInfo()
       this.fetchVersionStatsInfo()
     },
-    fetchNPMData () {
+    fetchNPMData() {
       r.get(`https://api.npms.io/v2/package/${this.repo}`).then(res => {
         let data = res.data
         this.npmInfo = data
@@ -274,66 +357,91 @@ export default {
         this.fetchGithubRepoInfo()
       })
     },
-    fetchVersionsInfo () {
-      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}`).then(res => {
-        this.versions = res.data
-      })
+    fetchVersionsInfo() {
+      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}`).then(
+        res => {
+          this.versions = res.data
+        }
+      )
     },
-    fetchFilesInfo (version) {
-      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}@${version}`).then(res => {
+    fetchFilesInfo(version) {
+      r.get(
+        `https://data.jsdelivr.com/v1/package/npm/${this.repo}@${version}`
+      ).then(res => {
         this.files = res.data
       })
     },
-    fetchStatsInfo () {
-      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}/stats/date`).then(res => {
+    fetchStatsInfo() {
+      r.get(
+        `https://data.jsdelivr.com/v1/package/npm/${this.repo}/stats/date`
+      ).then(res => {
         this.packageStats = res.data
       })
     },
-    fetchVersionStatsInfo () {
-      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}/stats/version/month`).then(res => {
+    fetchVersionStatsInfo() {
+      r.get(
+        `https://data.jsdelivr.com/v1/package/npm/${
+          this.repo
+        }/stats/version/month`
+      ).then(res => {
         this.packageVersionStats = res.data
       })
     },
-    fetchUsageInfoByVersion (version) {
-      r.get(`https://data.jsdelivr.com/v1/package/npm/${this.repo}@${version}/stats`).then(res => {
+    fetchUsageInfoByVersion(version) {
+      r.get(
+        `https://data.jsdelivr.com/v1/package/npm/${this.repo}@${version}/stats`
+      ).then(res => {
         this.versionStats = res.data
       })
     },
-    fixAnchorTags () {
+    fixAnchorTags() {
       let self = this
-      this.$nextTick(function () {
-        $('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').each(function (idx, a) {
-          $(a).attr('target', '_blank')
-          if (a.href !== '') {
-            if (window.location.host === a.host) {
-              console.log(self.defaultBranch)
-              if (self.defaultBranch !== undefined && self.defaultBranch !== '') {
-                let pathName = $(a)[0].pathname.replace(`/${self.author}`, '')
-                let blobLink = `${self.repoLink}/blob/${self.defaultBranch}${pathName}`
-                $(a).attr('href', blobLink)
-              } else {
-                $(a).attr('href', 'javascript:void(0)')
-                $(a).removeAttr('target')
+      this.$nextTick(function() {
+        $('.tab-content.repo-detail-info a:not([href^="#"], .toc-anchor)').each(
+          function(idx, a) {
+            $(a).attr('target', '_blank')
+            if (a.href !== '') {
+              if (window.location.host === a.host) {
+                console.log(self.defaultBranch)
+                if (
+                  self.defaultBranch !== undefined &&
+                  self.defaultBranch !== ''
+                ) {
+                  let pathName = $(a)[0].pathname.replace(`/${self.author}`, '')
+                  let blobLink = `${self.repoLink}/blob/${
+                    self.defaultBranch
+                  }${pathName}`
+                  $(a).attr('href', blobLink)
+                } else {
+                  $(a).attr('href', 'javascript:void(0)')
+                  $(a).removeAttr('target')
+                }
               }
             }
           }
-        })
+        )
 
-        $('.tab-content.repo-detail-info .table').addClass('table table-condensed table-stripped table-bordered')
+        $('.tab-content.repo-detail-info .table').addClass(
+          'table table-condensed table-stripped table-bordered'
+        )
       })
     },
-    fetchGithubRepoInfo () {
+    fetchGithubRepoInfo() {
       let repoLink = this.repoLink.replace('https://github.com/', '')
-      r.get(`https://api.github.com/repos/${repoLink}`).then(res => {
+      r.get(`https://api.github.com/repos/${repoLink}`, {
+        auth: { username: 'abishekrsrikaanth' }
+      }).then(res => {
         this.githubData = res.data
         this.fetchReadMe()
       })
     },
-    fetchReadMe () {
+    fetchReadMe() {
       let self = this
       if (this.githubData) {
         let repoLink = this.repoLink.replace('https://github.com/', '')
-        r.get(`https://api.github.com/repos/${repoLink}/readme`).then(res => {
+        r.get(`https://api.github.com/repos/${repoLink}/readme`, {
+          auth: { username: 'abishekrsrikaanth' }
+        }).then(res => {
           let data = res.data
           let downloadUrl = data.download_url
           r.get(downloadUrl).then(res => {
@@ -347,13 +455,13 @@ export default {
     }
   },
   computed: {
-    jsDelivrURL () {
+    jsDelivrURL() {
       return `https://www.jsdelivr.com/package/npm/${this.repo}`
     },
-    badgeUrl () {
+    badgeUrl() {
       return `https://data.jsdelivr.com/v1/package/npm/${this.repo}/badge`
     },
-    authorImage () {
+    authorImage() {
       if (this.npmInfo) {
         let repoUrl = this.repoMetadata.links.repository
         let sliced = repoUrl.split('/')
@@ -362,7 +470,7 @@ export default {
       }
       return ''
     },
-    authorLargeImage () {
+    authorLargeImage() {
       if (this.npmInfo) {
         let repoUrl = this.repoMetadata.links.repository
         let sliced = repoUrl.split('/')
@@ -371,7 +479,7 @@ export default {
       }
       return ''
     },
-    jumbotronChartData () {
+    jumbotronChartData() {
       if (this.packageStats) {
         let collection = {
           labels: [],
@@ -398,117 +506,145 @@ export default {
         datasets: []
       }
     },
-    repoMetadata () {
+    repoMetadata() {
       if (this.npmInfo) {
         return this.npmInfo.collected.metadata
       }
     },
-    repoScore () {
+    repoScore() {
       if (this.npmInfo) {
         return this.npmInfo.score
       }
     },
-    tags () {
+    tags() {
       if (this.npmInfo) {
         if (this.repoMetadata.keywords) {
           return this.repoMetadata.keywords.slice(0, 10).filter(r => {
-            return (r !== '')
+            return r !== ''
           })
         }
         return []
       }
       return []
     },
-    repoDescription () {
+    repoDescription() {
       if (this.npmInfo) {
         return this.repoMetadata.description
       }
     },
-    qualityScore () {
+    qualityScore() {
       if (this.npmInfo) {
-        return (this.repoScore.detail.quality * 100)
+        return this.repoScore.detail.quality * 100
       }
       return 0
     },
-    maintenanceScore () {
+    maintenanceScore() {
       if (this.npmInfo) {
-        return (this.repoScore.detail.maintenance * 100)
+        return this.repoScore.detail.maintenance * 100
       }
       return 0
     },
-    popularityScore () {
+    popularityScore() {
       if (this.npmInfo) {
-        return (this.repoScore.detail.popularity * 100)
+        return this.repoScore.detail.popularity * 100
       }
       return 0
     },
-    overallScore () {
+    overallScore() {
       if (this.npmInfo) {
-        return (this.repoScore.final * 100)
+        return this.repoScore.final * 100
       }
       return 0
     },
-    license () {
+    license() {
       if (this.npmInfo) {
         return this.repoMetadata.license
       }
     },
-    npmScore () {
+    npmScore() {
       return `https://badges.npms.io/${this.repo}.svg?style=flat-square`
     },
-    lastUpdated () {
-      if (this.npmInfo) { return m(this.repoMetadata.date).fromNow() }
+    lastUpdated() {
+      if (this.npmInfo) {
+        return m(this.repoMetadata.date).fromNow()
+      }
     },
-    repoLink () {
-      if (this.npmInfo) { return this.repoMetadata.links.repository }
+    repoLink() {
+      if (this.npmInfo) {
+        return this.repoMetadata.links.repository
+      }
     },
-    bugsLink () {
-      if (this.npmInfo) { return this.repoMetadata.links.bugs }
+    bugsLink() {
+      if (this.npmInfo) {
+        return this.repoMetadata.links.bugs
+      }
     },
-    npmLink () {
-      if (this.npmInfo) { return this.repoMetadata.links.npm }
+    npmLink() {
+      if (this.npmInfo) {
+        return this.repoMetadata.links.npm
+      }
     },
-    homepageLink () {
-      if (this.npmInfo) { return this.repoMetadata.links.homepage }
+    homepageLink() {
+      if (this.npmInfo) {
+        return this.repoMetadata.links.homepage
+      }
     },
-    defaultFile () {
+    defaultFile() {
       if (this.files) {
         return this.files.default
       }
     },
-    defaultBranch () {
-      if (this.githubData) { return this.githubData.default_branch }
+    defaultBranch() {
+      if (this.githubData) {
+        return this.githubData.default_branch
+      }
     },
-    forksCount () {
-      if (this.githubData) { return this.githubData.forks_count }
+    forksCount() {
+      if (this.githubData) {
+        return this.githubData.forks_count
+      }
       return 0
     },
-    watchersCount () {
-      if (this.githubData) { return this.githubData.watchers_count }
+    watchersCount() {
+      if (this.githubData) {
+        return this.githubData.watchers_count
+      }
       return 0
     },
-    stargazersCount () {
-      if (this.githubData) { return this.githubData.stargazers_count }
+    stargazersCount() {
+      if (this.githubData) {
+        return this.githubData.stargazers_count
+      }
       return 0
     },
-    subscribersCount () {
-      if (this.githubData) { return this.githubData.subscribers_count }
+    subscribersCount() {
+      if (this.githubData) {
+        return this.githubData.subscribers_count
+      }
       return 0
     },
-    npmDownloadsCount () {
+    npmDownloadsCount() {
       if (this.npmInfo) {
         let count = 0
         this.npmInfo.collected.npm.downloads.forEach(download => {
           count += download.count
         })
 
-        if (count > 10000000) { return n(count).format('0,0.00a') } else { return n(count).format('0,0') }
+        if (count > 10000000) {
+          return n(count).format('0,0.00a')
+        } else {
+          return n(count).format('0,0')
+        }
       }
       return 0
     },
-    jsDelivrDownloadsCount () {
+    jsDelivrDownloadsCount() {
       if (this.packageStats) {
-        if (this.packageStats.total > 10000000) { return n(this.packageStats.total).format('0,0.00a') } else { return n(this.packageStats.total).format('0,0') }
+        if (this.packageStats.total > 10000000) {
+          return n(this.packageStats.total).format('0,0.00a')
+        } else {
+          return n(this.packageStats.total).format('0,0')
+        }
       }
       return 0
     }

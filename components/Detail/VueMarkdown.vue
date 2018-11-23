@@ -17,7 +17,7 @@ export default {
 
   template: '<div><slot></slot></div>',
 
-  data () {
+  data() {
     return {
       sourceData: this.source
     }
@@ -85,7 +85,8 @@ export default {
       default: false
     },
     tocId: {
-      type: String
+      type: String,
+      default: ''
     },
     tocClass: {
       type: String,
@@ -96,7 +97,8 @@ export default {
       default: 2
     },
     tocLastLevel: {
-      type: Number
+      type: Number,
+      default: -1
     },
     tocAnchorLink: {
       type: Boolean,
@@ -124,21 +126,27 @@ export default {
     },
     prerender: {
       type: Function,
-      default: (sourceData) => { return sourceData }
+      default: sourceData => {
+        return sourceData
+      }
     },
     postrender: {
       type: Function,
-      default: (htmlData) => { return htmlData }
+      default: htmlData => {
+        return htmlData
+      }
     }
   },
 
   computed: {
-    tocLastLevelComputed () {
-      return this.tocLastLevel > this.tocFirstLevel ? this.tocLastLevel : this.tocFirstLevel + 1
+    tocLastLevelComputed() {
+      return this.tocLastLevel > this.tocFirstLevel
+        ? this.tocLastLevel
+        : this.tocFirstLevel + 1
     }
   },
 
-  render (createElement) {
+  render(createElement) {
     this.md = new MarkdownIt()
       .use(subscript)
       .use(superscript)
@@ -147,7 +155,7 @@ export default {
       .use(abbreviation)
       .use(insert)
       .use(mark)
-      .use(katex, { 'throwOnError': false, 'errorColor': ' #cc0000' })
+      .use(katex, { throwOnError: false, errorColor: ' #cc0000' })
       .use(tasklists, { enabled: this.taskLists })
 
     if (this.emoji) {
@@ -163,13 +171,15 @@ export default {
       langPrefix: this.langPrefix,
       quotes: this.quotes
     })
-    this.md.renderer.rules.table_open = () => `<table class="${this.tableClass}">\n`
-    let defaultLinkRenderer = this.md.renderer.rules.link_open ||
-      function (tokens, idx, options, env, self) {
+    this.md.renderer.rules.table_open = () =>
+      `<table class="${this.tableClass}">\n`
+    let defaultLinkRenderer =
+      this.md.renderer.rules.link_open ||
+      function(tokens, idx, options, env, self) {
         return self.renderToken(tokens, idx, options)
       }
     this.md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
-      Object.keys(this.anchorAttributes).map((attribute) => {
+      Object.keys(this.anchorAttributes).map(attribute => {
         let aIndex = tokens[idx].attrIndex(attribute)
         let value = this.anchorAttributes[attribute]
         if (aIndex < 0) {
@@ -204,22 +214,19 @@ export default {
     }
 
     let outHtml = this.show
-      ? this.md.render(
-        this.prerender(this.sourceData)
-      ) : ''
+      ? this.md.render(this.prerender(this.sourceData))
+      : ''
     outHtml = this.postrender(outHtml)
 
     this.$emit('rendered', outHtml)
-    return createElement(
-      'div', {
-        domProps: {
-          innerHTML: outHtml
-        }
+    return createElement('div', {
+      domProps: {
+        innerHTML: outHtml
       }
-    )
+    })
   },
 
-  beforeMount () {
+  beforeMount() {
     if (this.$slots.default) {
       this.sourceData = ''
       for (let slot of this.$slots.default) {
@@ -232,7 +239,7 @@ export default {
       this.$forceUpdate()
     })
 
-    this.watches.forEach((v) => {
+    this.watches.forEach(v => {
       this.$watch(v, () => {
         this.$forceUpdate()
       })
